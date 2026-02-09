@@ -35,6 +35,7 @@
     - Master #1,2,3 - Non-GPU Worker #1,2,3 - GPU Worker #1 - Storage #1,2,3
     - CP4BA는 GPU를 사용하지 않는다, GPU Worker의 용도는?
     - CP4BA 25.0.0, 25.0.1 버전과 호환 
+
 - **Solution Version:** Latest (최신 버전)
 - **License:** X
 - **Air-gapped** 
@@ -152,3 +153,8 @@
 
 2. 재부팅 후 Ubuntu실행 
     - 사용자명/ 비밀번호 설정
+
+## Free trial
+- [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
+- [Watsonx](https://dl.watson-orchestrate.ibm.com/?mcsp_metadata=eyJjcm4iOiJjcm46djE6YXdzOnB1YmxpYzp3eG86dXMtZWFzdC0xOnN1Yi8yMDI2MDIwOS0wNDI0LTM1OTgtOTAxZi1mNzE2MGI1M2Q2YjE6MjAyNjAyMDktMDQyNC01MTIzLTkwY2YtMjBhZWM4M2Q5OGU5OjoifQ)
+- [CP4BA](https://www.automationcloud.ibm.com/auth/index.jsp)
