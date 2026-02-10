@@ -145,6 +145,18 @@
 1. Java 17 이상, keytool
 2. [OpenSSL](https://www.ibm.com/links?url=https%3A%2F%2Fwww.openssl.org%2F)
 
+## Role
+```
+IPM = 원재료 정제 공장
+     └─ 로그 데이터를 깔끔하게 정리
+
+BAW = 자동화 공장
+     └─ IPM 데이터로 자동 작업 실행
+
+Watsonx = AI 분석실
+         └─ IPM 데이터로 AI 분석
+```
+
 ## Linux(Ubuntu) 설치
 1. 관리자 권한으로 PowerShell 실행
     ```
@@ -160,18 +172,6 @@
 |------|---|
 |BAW|시스템 간의 API호출로 자동화, UI를 거치지 않는다.|
 |RPA|사람이 직접 UI를 클릭해서 자동화|
-
-## Role
-```
-IPM = 원재료 정제 공장
-     └─ 로그 데이터를 깔끔하게 정리
-
-BAW = 자동화 공장
-     └─ IPM 데이터로 자동 작업 실행
-
-Watsonx = AI 분석실
-         └─ IPM 데이터로 AI 분석
-```
 
 ## Free trial
 - [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
