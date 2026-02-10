@@ -1,0 +1,3 @@
+## Jira Ticketing
+> BPMN
+- activity: Open, First priority, Change in incidence type, ...
