@@ -155,15 +155,6 @@
 2. 재부팅 후 Ubuntu실행 
     - 사용자명/ 비밀번호 설정
 
-## Free trial
-- [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
-- [Watsonx](https://dl.watson-orchestrate.ibm.com/?mcsp_metadata=eyJjcm4iOiJjcm46djE6YXdzOnB1YmxpYzp3eG86dXMtZWFzdC0xOnN1Yi8yMDI2MDIwOS0wNDI0LTM1OTgtOTAxZi1mNzE2MGI1M2Q2YjE6MjAyNjAyMDktMDQyNC01MTIzLTkwY2YtMjBhZWM4M2Q5OGU5OjoifQ)
-- [CP4BA](https://www.automationcloud.ibm.com/auth/index.jsp)
-
-## Etc
-- Non Container로 설치하게 되면 Openshift에는 붙일 수 없다.
--> 서로 다른 서버로 구성?하여 데이터만 보내는 식으로?
-
 ## BAW / RPA 차이
 |구분|내용|
 |------|---|
@@ -181,3 +172,12 @@ BAW = 자동화 공장
 Watsonx = AI 분석실
          └─ IPM 데이터로 AI 분석
 ```
+
+## Free trial
+- [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
+- [Watsonx](https://dl.watson-orchestrate.ibm.com/?mcsp_metadata=eyJjcm4iOiJjcm46djE6YXdzOnB1YmxpYzp3eG86dXMtZWFzdC0xOnN1Yi8yMDI2MDIwOS0wNDI0LTM1OTgtOTAxZi1mNzE2MGI1M2Q2YjE6MjAyNjAyMDktMDQyNC01MTIzLTkwY2YtMjBhZWM4M2Q5OGU5OjoifQ)
+- [CP4BA](https://www.automationcloud.ibm.com/auth/index.jsp)
+
+## Etc
+- Non Container로 설치하게 되면 Openshift에는 붙일 수 없다.
+-> 서로 다른 서버로 구성?하여 데이터만 보내는 식으로?
