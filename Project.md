@@ -16,11 +16,11 @@
 
 ##  Quick Links
 
-- **IBM Process Mining (IPM)**
-    - [Official Documentation](https://www.ibm.com/docs/ko/process-mining)
+- **[IBM Process Mining (IPM)](https://www.ibm.com/docs/ko/process-mining)**
         
-- **Business Automation Workflow (BAW)**
-    - [Official Documentation](https://www.ibm.com/docs/ko/baw)
+- **[Business Automation Workflow (BAW)](https://www.ibm.com/docs/ko/baw)**
+
+- **[IBM watsonx Orchestrate ADK](https://developer.watson-orchestrate.ibm.com/agents/descriptions)**
 
 ##  Resource Access
 
