@@ -6,11 +6,13 @@
 
 - **IBM Process Mining:** 시스템 로그를 바탕으로 시스템 간 흐름 파악
 - **IBM Task Mining:** 사람의 PC작업을 바탕으로 개별작업 파악
-- **BAW:** 비즈니스 프로세스 자동화 도구, 업무를 자동으로 처리하는 플랫폼, [BAW / RPA 차이?](#baw--rpa) 
+- **BAW:** 비즈니스 프로세스 자동화 도구, 업무를 자동으로 처리하는 플랫폼, [BAW / RPA 차이?](#baw--rpa-차이)
 - **Air-gapped:** 외부환경과 물리적, 논리적으로 차단된 환경
 - **Node:** 서버
 - **Non-GPU Worker Node:** GPU가 없는 워커 노드
 - **Plugin:** 기존 도구의 기능을 덧붙여 확장하는 모듈
+- **RPM:** 패키지 설치, [RPM / YUM 차이?](#rpm--yum-차이)
+- **ETL:** Extract, Transform, Load, 데이터를 추출해서 변환하고 저장하는 과정
 
 ##  Quick Links
 
@@ -120,13 +122,8 @@
     - CASE: ~/.ibm-pak/data/cases/
     - Manifest: ~/.ibm-pak/data/mirror/
 
-
 > 도구
-
 3. [Podman(컨테이너를 실행하고 관리하는 도구)](https://www.ibm.com/links?url=https%3A%2F%2Fpodman.io%2Fgetting-started%2Finstallation.html)
-
-> 파일
-3. 이미지 데이터: ~/mirror-data
 
 ### Business Automation Workflow(BAW)
 ### [ Container ]
@@ -172,6 +169,12 @@ Watsonx = AI 분석실
 |------|---|
 |BAW|시스템 간의 API호출로 자동화, UI를 거치지 않는다.|
 |RPA|사람이 직접 UI를 클릭해서 자동화|
+
+## RPM / YUM 차이
+|구분|내용|인터넷 필요|
+|------|---|:---:|
+|RPM|Linux프로그램 설치, 의존성 설치 X|X|
+|YUM|Linux프로그램 설치, 의존성 설치 O|O|
 
 ## Free trial
 - [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
