@@ -48,9 +48,9 @@
 
 ### IBM Process Mining(IPM)
 ### [ Non Container ]
-> [패키지 다운로드](https://www.ibm.com/software/passportadvantage/pao_customer.html)
-1. IBM Process Mining(M0XLBML)   
-2. IBM Task Mining(M0XLCML)
+> 제품 다운로드(2.1.0 기준)
+1. Server(M0XLBML)   
+2. Client(M0XLCML)
 
 > 설치 및 구성하기 IBM Process Mining
 1. [기본 설정](https://www.ibm.com/docs/ko/process-mining/2.1.0?topic=mining-basic-setup)
