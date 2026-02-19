@@ -26,7 +26,6 @@
 
 - **Partner Portal:** [IBM Partner Plus](https://partnerportal.ibm.com/s/)
     
-- **Software Download:** [Software Access Catalog](https://partnerportal.ibm.com/s/software-access-catalog)
 ##  Tech Stack & Environment
 - **Basestructure:**
     - master node(제어, 스케줄링, 상태관리) - worker node(실행) - storage node(저장)
@@ -39,30 +38,13 @@
     - CP4BA 25.0.0, 25.0.1 버전과 호환 
 
 - **Solution Version:** Latest (최신 버전)
-- **License:** X
 - **Air-gapped** 
-- **Non-conatianer: IPM**
+- **Non-conatianer: IPM?**
 - **Conatianer: BAW, Watsonx**
 
 ## Installation Checklist (Preparation)
 
 ### IBM Process Mining(IPM)
-### [ Non Container ]
-> 제품 다운로드(2.1.0 기준)
-1. Server(M0XLBML)   
-2. Client(M0XLCML)
-
-> 설치 및 구성하기 IBM Process Mining
-1. [기본 설정](https://www.ibm.com/docs/ko/process-mining/2.1.0?topic=mining-basic-setup)
-    - [MonetDB](https://www.ibm.com/links?url=https%3A%2F%2Fwww.monetdb.org%2Feasy-setup%2Fredhat-centos%2F) 11.53.9
-    - [PostgreSQL](https://www.ibm.com/links?url=https%3A%2F%2Fwww.postgresql.org%2Fdownload%2Flinux%2Fredhat%2F) 16
-    - python3.12
-    - nginx
-2. 고급 설정
-    - [JWT 서명 키 생성](https://www.ibm.com/docs/ko/process-mining/2.1.0?topic=configurations-advanced-setup)
-
-> [확장 및 고가용성](https://www.ibm.com/docs/ko/process-mining/2.1.0?topic=configuration-scaling-high-availability)
-1. [Redis](https://www.ibm.com/links?url=https%3A%2F%2Fredis.io%2Fdocs%2Flatest%2Foperate%2Frs%2Finstalling-upgrading%2F)
 
 ### [ Container ]
 > Linux 환경에 사전 다운로드
@@ -180,7 +162,3 @@ Watsonx = AI 분석실
 - [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
 - [Watsonx](https://dl.watson-orchestrate.ibm.com/?mcsp_metadata=eyJjcm4iOiJjcm46djE6YXdzOnB1YmxpYzp3eG86dXMtZWFzdC0xOnN1Yi8yMDI2MDIwOS0wNDI0LTM1OTgtOTAxZi1mNzE2MGI1M2Q2YjE6MjAyNjAyMDktMDQyNC01MTIzLTkwY2YtMjBhZWM4M2Q5OGU5OjoifQ)
 - [CP4BA](https://www.automationcloud.ibm.com/auth/index.jsp)
-
-## Etc
-- Non Container로 설치하게 되면 Openshift에는 붙일 수 없다.
--> 서로 다른 서버로 구성?하여 데이터만 보내는 식으로?
