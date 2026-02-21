@@ -91,7 +91,154 @@
     # 확인
     postgres --version
     ```
+7. PostgreSQL 초기화 및 서비스 설정
+    ```
+    # 데이터베이스 초기화 (최초 1회 필수)
+    sudo postgresql-setup --initdb
 
-7. Python v3.12 설치
-8. Nginx 설치
-9. Processmining 실행
+    # 서비스 시작 및 부팅 시 자동 실행 설정
+    sudo systemctl enable --now postgresql
+
+    # 서비스 상태 확인
+    # active (running) : 실행중
+    sudo systemctl status postgresql
+    ```
+
+8. PostgreSQL 기본 구성
+    ```
+    export POSTGRES_PROCESSMINER_PWD="비밀번호"
+    export POSTGRES_PROCESSMINER_USER="processmining"
+    export POSTGRES_PROCESSMINER_DATABASE="processmining"
+
+    pushd /tmp
+    sudo -E -u postgres createuser ${POSTGRES_PROCESSMINER_USER}
+    sudo -E -u postgres createdb ${POSTGRES_PROCESSMINER_DATABASE}
+    sudo -E -u postgres psql -c "alter user ${POSTGRES_PROCESSMINER_USER} with encrypted password '${POSTGRES_PROCESSMINER_PWD}';"
+    sudo -E -u postgres psql -c "grant all privileges on database ${POSTGRES_PROCESSMINER_DATABASE} to ${POSTGRES_PROCESSMINER_USER};"
+    sudo -E -u postgres psql -c "GRANT ALL ON ALL TABLES IN SCHEMA public TO ${POSTGRES_PROCESSMINER_USER}";
+    sudo -E -u postgres psql -c "ALTER DATABASE ${POSTGRES_PROCESSMINER_DATABASE} OWNER TO ${POSTGRES_PROCESSMINER_USER}";
+    popd
+    ```
+    ```
+    # password 압호화
+    # <PM_HOME>/utils/crypto-utils 사용
+    # password에 '$'가 포함되는 경우 'password'로 입력
+    ./crypt-utils.sh password
+    ```
+    ```
+    # <PM_HOME>/etc/processmining.conf 수정
+    # <encrypted database password> : 암호화된 password
+    persistence: {
+        jdbc: {
+            database: "<database name>",
+            host: "<database host>",
+            port: <database port>,
+            user: "<database user>",
+            password: "<encrypted database password>" 
+        }
+    ...
+    ```
+
+    ```
+    # <PM_HOME>/etc/accelerator-core.properties 수정
+    # <encrypted database password> : 암호화된 password
+    spring.datasource.database=<database name>
+    spring.datasource.port=<database port>
+    spring.datasource.host=<database host>
+    spring.datasource.username=<database user>
+    spring.datasource.password=<encrypted database password>
+    ```
+9. PostgreSQL 초기화
+    ```
+    # <PM_HOME>/utils/database-utils/postgres-utils.sh 실행
+    ./postgres-utils.sh
+    ```
+
+10. Python v3.12 설치
+    ```
+    # 파이썬 본체, 패키지 관리자(pip), 개발용 라이브러리 설치
+    sudo dnf install -y python3.12 python3.12-pip python3.12-devel
+    ```
+    - <PM_HOME>/bin/environment.conf > CMD_PYTHON 값이 /usr/bin/python3.12인지 확인
+
+11. NGINX 설치
+    ```
+    # Nginx 설치
+    sudo dnf install -y nginx
+    ```
+
+12. NGINX 서비스 설정
+    ```
+    # 서비스 시작 및 부팅 시 자동 실행 설정
+    sudo systemctl enable --now nginx
+
+    # 서비스 상태 확인
+    # active (running) : 실행중
+    systemctl status nginx
+    ```
+
+13. 방화벽 설정
+    ```
+    # HTTP, HTTPS 포트 허용
+    sudo firewall-cmd --permanent --add-service=http
+    sudo firewall-cmd --permanent --add-service=https
+
+    # 방화벽 설정 적용
+    sudo firewall-cmd --reload
+    ```
+
+14. NGINX 가상 호스트 구성
+    ```
+    mv /etc/nginx/conf.d/default.conf /etc/nginx/confd/default_origin.conf
+    cp <PM_HOME>/nginx/processmining.conf /etc/nginx/conf.d/default.conf
+    ```
+
+15. NGINX SSL 구성
+    ```
+    mkdir /etc/nginx/ssl
+
+    cp /home/pm/cert/server.* /etc/nginx/ssl/
+
+    # /etc/nginx/conf.d/default.conf > ssl_certificate, ssl_certificate_key 경로 수정
+    ssl_certificate /etc/nginx/ssl/server.pem;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+
+    # NGINX 테스트 및 재시작
+    nginx -T
+    systemctl restart nginx
+    ```
+
+16. Disable data-derived end-activities
+    ```
+    # <PM_HOME>/etc/processmining.conf > engine.defaults 섹션에 endActivity 속성 추가
+    engine: {
+    defaults: {
+    ...
+    endActivity:{
+    enable: false
+    },
+    ....
+    }
+    }
+    ```
+
+17. Creating a private key and a public key for process ap
+    ```
+    <PM_HOME>/utils/generateKeyPair.sh
+    ```
+
+18. Processmining 서비스 실행
+    ```
+    cd <PM_HOME>/bin/
+    ./pm-monet.sh start | stop
+    ./pm-web.sh start | stop
+    ./pm-engine.sh start | stop
+    ./pm-analytics.sh start | stop
+    ./pm-accelerators.sh start | stop
+    ./pm-brm.sh start | stop
+    ./pm-monitoring.sh start | stop
+    ```
+
+19. Processmining 초기 Admin
+    - 사용자 이름 : maintenance.admin
+    - 비밀번호 : pmAdmin$1
