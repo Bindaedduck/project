@@ -30,7 +30,7 @@
 
     # IPM 설치
     cd /opt
-    sudo tar xvf ibmprocessmining-setup-X.Y.Z.tar.gz 
+    sudo tar xvf ibmprocessmining-setup-2.1.0_924e3d4.tar.gz 
 
     # PM_HOME 변수 설정
     export PM_HOME="/opt/processmining"
