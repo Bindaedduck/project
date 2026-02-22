@@ -9,7 +9,7 @@
     - rhel 설치 파일
 
 - rhel-9.6-x86_64-dvd.iso
-    - IPM이 실행하기 위해 필요한 프로그램 설치 파일(Postgre, Python, Nginx)
+    - IPM이 실행하기 위해 필요한 프로그램 설치 파일(PostgreSQL, Python, NGINX)
 
 > Steps
 1. WSL가 설치되었다는 가정하에 RHEL 설치
