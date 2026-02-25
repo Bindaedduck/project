@@ -162,15 +162,6 @@ Watsonx = AI 분석실
 - Project: 설계/분석 -> 설계도
 - ProcessApp: 운영/모니터링 -> 설계도를 가지고 실제 운영
 
-# PostgreSQL 접속
-```
-# PostgreSQL 접속
-sudo -u postgres psql
-
-# PostgreSQL > processmining 스키마 접속
-sudo -u postgres psql -d processmining
-```
-
 ## Free trial
 - [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)
 - [Watsonx](https://dl.watson-orchestrate.ibm.com/?mcsp_metadata=eyJjcm4iOiJjcm46djE6YXdzOnB1YmxpYzp3eG86dXMtZWFzdC0xOnN1Yi8yMDI2MDIwOS0wNDI0LTM1OTgtOTAxZi1mNzE2MGI1M2Q2YjE6MjAyNjAyMDktMDQyNC01MTIzLTkwY2YtMjBhZWM4M2Q5OGU5OjoifQ)

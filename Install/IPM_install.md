@@ -1,4 +1,4 @@
-## IBM Process Mining(IPM)
+## IBM Process Mining install
 ### [ Non Container ]
 > Download
 - [IPM - 2.1.0](https://partnerportal.ibm.com/s/software-access-catalog)
