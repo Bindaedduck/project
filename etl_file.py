@@ -31,20 +31,46 @@ def drop_col():
         print("작업 정상 완료")
     else:
         print("작업 비정상 종료")
+
+def json_to_csv(folder_path):
+    for file_name in os.listdir(folder_path):
+        json_file_path = os.path.join(folder_path, file_name)
+        file_name_without_ext = os.path.splitext(file_name)[0]
+        csv_file_path = folder_path + file_name_without_ext + '.csv'
+        
+        df = pd.json_normalize(json_data)
+    
+    df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')
+    
+    print("작업 정상 완료")
+
     
 def select_work():
+    param = []
+    
     print("=== 작업 목록 ===")
-    print("1. 특정 컬럼 삭제")
- 	print("2. ""문자열에서 ,문자 ;문자로 변환")
+    print("1. JSON -> CSV 변환")
+    print("2. 특정 컬럼 삭제")
+ 	print("3. ""문자열에서 ,문자 ;문자로 변환")
     print("================")
+    
     input_work = input("수행 할 작업을 입력하세요: ")
-    return input_work
+    input_folder_path = input("폴더 경로를 입력하세요: ")
+    
+    param["work"] = input_work
+    param["folder_path"] = input_folder_path
+    
+    return param
 
 def main():
-    work = select_work()
+    param = select_work()
+    work = param["work"]
+    folder_path = param["folder_path"]
     
     if work == "1":
-        drop_col()
+        select_work(folder_path)
+    elif work == "2":
+        drop_col(folder_path)
 
 if __name__ == "__main__":
     main()
