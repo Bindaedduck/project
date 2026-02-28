@@ -1,6 +1,6 @@
 ## Solution
 
-**IBM Process Mining(IPM)**, **Business Automation Workflow(BAW)**, **Watsonx**
+**IBM Process Mining(IPM)**, **Business Automation Workflow(BAW)**, **Watsonx Orchestrate**
 
 ## Concept
 
@@ -13,6 +13,8 @@
 - **Plugin:** 기존 도구의 기능을 덧붙여 확장하는 모듈
 - **RPM:** 패키지 설치, [RPM / YUM 차이?](#rpm--yum-차이)
 - **ETL:** Extract, Transform, Load, 데이터를 추출해서 변환하고 저장하는 과정
+- **MVP(Minimum Variable Project):** 최소한의 핵심기능만 갖춘 완성된 상태 
+- **BPMN(Business Process Modeling Notation):** 비즈니스 프로세스를 시각적으로 설계하고 모델링하기 위한 국제 표준 그래픽 기법
 
 ##  Quick Links
 
@@ -34,13 +36,12 @@
     - Red Hat (RHEL) : 9.6
     - Red Hat OpenShift (OCP) : 4.18
     - Master #1,2,3 - Non-GPU Worker #1,2,3 - GPU Worker #1 - Storage #1,2,3
-    - CP4BA는 GPU를 사용하지 않는다, GPU Worker의 용도는?
     - CP4BA 25.0.0, 25.0.1 버전과 호환 
 
 - **Solution Version:** Latest (최신 버전)
 - **Air-gapped** 
 - **Non-conatianer: IPM?**
-- **Conatianer: BAW, Watsonx**
+- **Conatianer: BAW, Watsonx Orchestrate**
 
 ## Installation Checklist (Preparation)
 
@@ -158,9 +159,9 @@ Watsonx = AI 분석실
 |RPM|Linux프로그램 설치, 의존성 설치 X|X|
 |YUM|Linux프로그램 설치, 의존성 설치 O|O|
 
-## Project / ProcessApp 역할
-- Project: 설계/분석 -> 설계도
-- ProcessApp: 운영/모니터링 -> 설계도를 가지고 실제 운영
+## 시간 설정
+- IBM Process mining의 시간은 설치된 환경의 기본 시간을 기억한다? 
+-> 설치된 후에 시간을 변경하면 정상적으로 작동하지 않는다.
 
 ## Free trial
 - [IPM](https://ibm-process-mining-trial.automationcloud.ibm.com/signin)

@@ -32,6 +32,26 @@ opt/processmining/respository/temp/accel/venv/lib/python3.12/site-packages/
 # PostgreSQL 접속
 sudo -u postgres psql
 
-# PostgreSQL > processmining 스키마 접속
+# PostgreSQL > processmining 스키마 접속 1
 sudo -u postgres psql -d processmining
+
+# PostgreSQL > processmining 스키마 접속 2
+sudo -u postgres /usr/bin/psql -d eventlog
 ```
+
+<br/>
+
+> User groups authority
+- Analyst Users
+    - Create a process-mining project [o]
+    - Start from a process application [o]
+
+- Business Users
+    - projcets only view [o]     
+
+<br/>
+
+> Project / ProcessApp 역할
+- Project: 설계/분석 -> 설계도
+
+- ProcessApp: 운영/모니터링 -> 설계도를 가지고 실제 운영
