@@ -15,6 +15,8 @@
 - **ETL:** Extract, Transform, Load, 데이터를 추출해서 변환하고 저장하는 과정
 - **MVP(Minimum Variable Project):** 최소한의 핵심기능만 갖춘 완성된 상태 
 - **BPMN(Business Process Modeling Notation):** 비즈니스 프로세스를 시각적으로 설계하고 모델링하기 위한 국제 표준 그래픽 기법
+- **Compute:** 계산하다
+- **Statistics:** 통계학
 
 ##  Quick Links
 
