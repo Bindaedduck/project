@@ -8,5 +8,5 @@ def execute():
     
     return df
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     df = execute()
