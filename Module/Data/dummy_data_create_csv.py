@@ -9,11 +9,11 @@ activities = ['order_received', 'payment_check', 'inventory_scan', 'packing_star
 resources = ['system_auto', 'user_admin', 'worker_01', 'worker_02', 'bot_alpha']
 status_codes = [200, 201, 400, 404, 500]
 
-np.random.seed(42) # 재현 가능하도록 시드 고정
+np.random.seed(42) 
 data_size = 50
 
 dummy_data = {
-    'case_id': [f"C-{1000 + (i // 5)}" for i in range(data_size)], # 10개의 케이스가 각각 5개 활동
+    'case_id': [f"C-{1000 + (i // 5)}" for i in range(data_size)],
     'event_id': [f"E-{5000 + i}" for i in range(data_size)],
     'activity_name': [activities[i % 5] for i in range(data_size)],
     'resource_id': [np.random.choice(resources) for _ in range(data_size)],
