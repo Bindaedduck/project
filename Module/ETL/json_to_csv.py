@@ -15,7 +15,10 @@ def execute():
 			with open(file_path, 'r', encoding='utf-8') as json_file:
 				json_data = json.load(json_file)
 		
-			df = pd.json_normalize(json_data)
+			# df = pd.json_normalize(json_data)
+			df = pd.DataFrame(json_data)
+			# 100개의 데이터만 가져와라
+			# df = df.head(100)
 			
 			df.to_csv(csv_result_file_path, index=False, encoding='utf-8-sig')
 		
