@@ -19,7 +19,9 @@ def execute():
 			df = pd.DataFrame(json_data)
 			# 100개의 데이터만 가져와라
 			# df = df.head(100)
-			
+			# timestamp -> datetime
+			# 1770876625 -> 2026-02-12 6:10:25 AM
+			# df['time'] = pd.to_datetime(df['time'], unit='s')
 			df.to_csv(csv_result_file_path, index=False, encoding='utf-8-sig')
 		
 	print("작업 완료")
