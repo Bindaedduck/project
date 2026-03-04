@@ -14,7 +14,10 @@ def csv_comma_to_semicolon():
             
             df = pd.read_csv(file_path, quotechar='"')
             # 문자
-            df[f'{input_extract_col}_extract'] = df[input_extract_col].str.extract(r'"[^"]*:\s*(\w+)"') 
+            # df[f'{input_extract_col}_extract'] = df[input_extract_col].str.extract(r'"[^"]*:\s*(\w+)"')
+            # [ISSUE#] 뒤에 내용 추출
+            df['ISSUE'] = df[input_extract_col].str.extract(r'(?<=\[ISSUE#\])(.*?)(?=,)') 
+            df['ISSUE'] = df['ISSUE'].fillna('NA')
             # 숫자
             # df[f'{input_extract_col}_extract'] = df[input_extract_col].str.extract(r'"[^"]*:\s*(\d+)"') 
 
