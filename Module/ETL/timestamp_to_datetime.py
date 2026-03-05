@@ -13,3 +13,15 @@ def timestamp_to_datetime():
             
             df = pd.read_csv(file_path, quotechar='"')
             # 16자리 timestamp
+            # errors='corce' 에러난 건 표시?
+            df['Timestamp_etf'] = pd.to_datetime(df['Timestamp'], unit='us', erros='coerce')
+            # 10자리 timestamp
+            # df['time_etf'] = pd.to_datetime(df['time'], unit='s', errors='coerce')
+            df = df.dropna(subset=['Timestamp_etf'])
+            
+            df.to_scv(csv_result_file_path, index=False, quoting=1, escapechar='\\', encoding='utf-8-sig')
+        
+        print("작업 완료")
+    
+    if __name__ == "__main__":
+        timestamp_to_datetime()
