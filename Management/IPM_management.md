@@ -89,6 +89,19 @@ chown -R user:user /
 <br/>
 
 > Projects
+- Eventlog upload
+    - 최적화
+        - csv -> csv.gz
+        - 한 번에 업로드하는 양은 최대 200만줄 정도만  
+
+    - 누적해서 파일 업로드 가능, 누적용량 : 47GB?
+    - 여러파일을 읽어들이기 가능 but 여러파일을 zip파일로 묶어서 업로드 할 시 하나의 파일만 읽는다
+    - ETL
+        - TEXT 문자열은 255자 이상이 X
+        - processid, activity, user, starttime은 빈칸 X
+        - timestamp형식은 starttime 호환 X
+
+
 - Process > Model > Box
     - Anonymous: Role을 부여하지 않았을 때 표시
     - Box 클릭 후 show activity statistics > 필드 > compute statistics > 필드에 대한 통계
@@ -102,6 +115,8 @@ chown -R user:user /
         - Process Flow: 횟수별로 조회
     
     - Save as template: 필터 즐겨찾기
+
+- Multi projcet: 같은 organization안에 같은 object table로 묶여있는 경우에 같이 묶어서 최대 5개까지 보여진다?
 
 <br/>
 
