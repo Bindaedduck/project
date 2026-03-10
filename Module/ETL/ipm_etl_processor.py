@@ -2,8 +2,11 @@ import pandas as pd
 import glob
 import os
 
-class IPMProcessor:
-    def __init__ (self, input_dir, split_rows=2000000, chunk_rows=100000):
+class IpmEtlProcessor:
+    # 예약어
+    RESERVED_KEYWORDS = []
+    
+    def __init__ (self, input_dir, split_rows=1000000, chunk_rows=100000):
         self.input_dir = input_dir
         self.output_dir = os.path.join(input_dir, "output")
         self.split_rows = split_rows
@@ -23,6 +26,9 @@ class IPMProcessor:
         # 컬럼 이름의 '.' -> ''로 변경
         df.columns = df.columns.str.replace('.', '', regex=False)
  		
+        # 컬럼 이름이 예약어와 같으면 '컬럼_col' 이름으로 변경
+        df.columns = [f"{col}_col" if col in self.RESERVED_KEYWORDS else col for col in df.columns]
+        
         return df
         
     def drop_duplicate_key(self, col):
@@ -31,7 +37,7 @@ class IPMProcessor:
         return df
         
     def drop_col(self, df, col):
-        df.drop(col, axis=1, inplace=True)
+        df.drop(col.split(','), axis=1, inplace=True)
 
         return df
     
@@ -47,20 +53,23 @@ class IPMProcessor:
     def convert_timestamp(self, df, col, length):
         time_unit = {10:'s', 13:'ms', 16:'us', 19:'ns'}
         work_time_unit = time_unit.get(length, 'us')
-        
-        # 유령값 제거
-        ghost_value = -9223372036854775808
-        df = df[df[col] != ghost_value].copy()
 
         df[col] = pd.to_datetime(df[col], unit=work_time_unit, errors='coerce')
-        self.drop_na(col)
+        df = self.drop_na(df, col)
         
         return df
 
     def drop_na(self, df, col):
-        return df.dropna(subset=[col])
+        df.dropna(subset=[col], inplace=True)
+        
+        return df
     
-    def run_unified_batch(self, drop_dupliacte_key=None, drop_col=None, replace_data=None, fill_na=None, convert_timestamp=None, drop_na=None, output_extension=".csv.gz"):
+    def rename_col(self, df, col_name, mod_col_name):
+        df.rename(columns={col_name:mod_col_name}, inplace=True)
+        
+        return df
+    
+    def run_unified_batch(self, drop_dupliacte_key=None, drop_col=None, replace_data=None, fill_na=None, convert_timestamp=None, drop_na=None, rename_col=None, output_extension=".csv.gz"):
         file_list = sorted(glob.glob(os.path.join(self.input_dir, "*.csv")))
         print(f" 총 {len(file_list)}개의 파일을 통합 처리합니다.")
 
@@ -77,7 +86,7 @@ class IPMProcessor:
                 if drop_dupliacte_key:
                     chunk = self.drop_duplicate_key(chunk, drop_duplicate_key)
                 if drop_col:
-                    chunk = self.drop_col(chunk, drop_col.split(','))
+                    chunk = self.drop_col(chunk, drop_col)
                 if replace_data:
                     for col, find_data, mod_data in replace_data:
                         chunk = self.replace_data(chunk, col, find_data, mod_data)
@@ -119,28 +128,30 @@ class IPMProcessor:
         print("전체 작업 완료")
 
 def main():
-    INPUT_DIR = r"C:\Users\tjrwl\Desktop\Archive\01.Work\01.Project\삼성전자 AX 프로젝트 설계\Data"
+    INPUT_DIR = r""
 
     processor = IPMProcessor(input_dir=INPUT_DIR)
 
     processor.run_unified_batch(
-		# chunk_size: 결과파일에 저장할 엑셀 row / param - row 수
+        # split_rows: 일정 행 개수씩 잘라서 저장 / param - row 수 / df.head()와 비슷한 역할
         # drop_duplicate_key: key값 중복 제거 / param - "key컬럼 이름"
         # drop_col: 삭제할 컬럼  / param 형식: param - "삭제할 컬럼 이름, ..."
         # replace_data: 특정 컬럼 값을 다른 값으로 변경한다. / param - {col:변경할 컬럼 이름, find_data:변경할 값, mod_data:수정할 값}
         # fill_na: 컬럼 값이 빈칸이면 특정문자열로 채운다. / param - {컬럼 이름: 빈칸을 채울 문자열, ...}
         # convert_timestamp: timestamp 형식 datetime으로 변경 / param - {col:timestamp컬럼 이름, len:timestamp 길이}
-        # drop_na: 데이터가 없는 컬럼에 해당하는 열 삭제 / param - "컬럼 이름" 
+        # drop_na: 데이터가 없는 컬럼에 해당하는 열 삭제 / param - "컬럼 이름",... 
+        # rename_col: 컬럼 이름 변경 / param - {col_name:컬럼 이름, mod_col_name:변경할 컬럼 이름}
         # output_extension: 결과파일 확장자
 		
-        chunk_size = 0,
-        drop_duplicate_key = "",
-        drop_col = "",
-        replace_data = {},
-        fill_na = {},
-        convert_timestamp = {},
-        drop_na = "",
-        output_extension = ""
+        # split_rows = 0,
+        # drop_duplicate_key = "",
+        # drop_col = "",
+        # replace_data = {},
+        # fill_na = {},
+        # convert_timestamp = {},
+        # drop_na = "",
+		# rename_col = {},      
+		# output_extension = ""
     )
 
 if __name__ == "__main__":
