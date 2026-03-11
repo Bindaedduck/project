@@ -32,7 +32,7 @@ class IpmEtlProcessor:
         return df
         
     def drop_duplicate_key(self, col):
-   		df = df.drop_dupliactes(subset=[col])
+        df = df.drop_dupliactes(subset=[col])
         
         return df
         
@@ -111,9 +111,9 @@ class IpmEtlProcessor:
                 write_header = not os.path.exists(output_path)
                 
                 chunk.to_csv(output_path, mode='a', index=False,
-                             header=write_header, quoting=1,
-                             escapechar='\\', encoding='utf-8-sig',
-                             compression=write_compression)
+                                header=write_header, quoting=1,
+                                escapechar='\\', encoding='utf-8-sig',
+                                compression=write_compression)
 
                 current_rows += len(chunk)
 
@@ -123,14 +123,14 @@ class IpmEtlProcessor:
                     current_rows = 0
             
             if os.path.exists(output_path):
-            	print(f"{output_name} 생성 완료")
+                print(f"{output_name} 생성 완료")
             
         print("전체 작업 완료")
 
 def main():
     INPUT_DIR = r""
 
-    processor = IPMProcessor(input_dir=INPUT_DIR)
+    processor = IpmEtlProcessor(input_dir=INPUT_DIR)
 
     processor.run_unified_batch(
         # split_rows: 일정 행 개수씩 잘라서 저장 / param - row 수 / df.head()와 비슷한 역할

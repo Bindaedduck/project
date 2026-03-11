@@ -94,12 +94,17 @@ chown -R user:user /
         - csv -> csv.gz
         - 한 번에 업로드하는 양은 최대 200만줄 정도만  
 
-    - 누적해서 파일 업로드 가능, 누적용량 : 47GB?
+    - 누적해서 파일 업로드 가능
+    - 업로드 300MB, 누적 용량 47GB 제한
     - 여러파일을 읽어들이기 가능 but 여러파일을 zip파일로 묶어서 업로드 할 시 하나의 파일만 읽는다
     - ETL
-        - TEXT 문자열은 255자 이상이 X
-        - processid, activity, user, starttime은 빈칸 X
-        - timestamp형식은 starttime 호환 X
+        - TEXT 문자열은 255자 이하
+        - processid, activity, starttime은 빈칸 X
+        - timestamp 형식은 starttime 호환 X
+        - 컬럼이름의 .이 들어가면 안된다.
+    - error: 발견한 상황만 기재, 다른 문제일수도 있다.
+        - Invalid csv field {0}: TEXT 문자열 길이가 255자를 넘어간 경우
+        - Generic error: 컬럼명이 예약어를 쓰고 있는 경우우
 
 
 - Process > Model > Box
@@ -108,6 +113,10 @@ chown -R user:user /
 
 - Table Join을 하면 object table 컬럼으로 role을 부여할 수 있다.
     - Attributes > Role attribute > Edit role attribute > 컬럼 지정
+
+- View option
+    - 활동복잡도: activity 백분율 / 높일수록 activity가 개수가 늘어난다.
+    - 관계복잡도: activtiy간의 관계 백분율 / 높일수록 관계(선)가 더 많이 보인다.
 
 - 필터 지정
     - Process > Manage filters > Add filters
