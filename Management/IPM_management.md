@@ -88,7 +88,7 @@ chown -R user:user /
 
 <br/>
 
-> Projects
+> Project
 - Eventlog upload
     - 최적화
         - csv -> csv.gz
@@ -104,7 +104,9 @@ chown -R user:user /
         - 컬럼이름의 .이 들어가면 안된다.
     - error: 발견한 상황만 기재, 다른 문제일수도 있다.
         - Invalid csv field {0}: TEXT 문자열 길이가 255자를 넘어간 경우
-        - Generic error: 컬럼명이 예약어를 쓰고 있는 경우우
+        - Generic error: 컬럼명이 예약어를 쓰고 있는 경우
+        - Case id...: processid값이 빈칸
+        - starttime...: starttime 형식 or 빈칸
 
 
 - Process > Model > Box
@@ -125,7 +127,18 @@ chown -R user:user /
     
     - Save as template: 필터 즐겨찾기
 
-- Multi projcet: 같은 organization안에 같은 object table로 묶여있는 경우에 같이 묶어서 최대 5개까지 보여진다?
+- Multi projcet: 같은 organization안에 같은 object table로 묶여있는 경우에 같이 묶어서 최대 5개까지 보여진다.
+
+- Backup
+    - project의 meta data, 설정, 대시보드만 가져오며 data는 백업하지 않는다.
+    - data를 업로드 할시 meta data, 설정, 대시보드 값을 backup파일의 값 그대로 가져온다.
+
+- 특이점
+    - 다른 사용자가 Projcet의 옵션들을 조정하여 일정시간 보고 있으면 해당 옵션들을 projcet가 기억하여 다른 사람들이 project를 보려고 할때 해당 옵션으로 보여지게 된다.
+
+> ProcessApp
+- error: 발견한 상황만 기재, 다른 문제일수도 있다.
+    - [Object object]: timeout 에러, 재시도를 하게 되면 성공하는 경우가 있다.
 
 <br/>
 
@@ -133,3 +146,113 @@ chown -R user:user /
 - Project: 설계/분석 -> 설계도
 
 - ProcessApp: 운영/모니터링 -> 설계도를 가지고 실제 운영
+
+> DB
+- project-operations: 에러 로그
+- accelatortypedetails: processapp
+
+<br/>
+
+> Rest api
+- 기본적으로 계정의 apiKey를 통해 JWT token(Bearer token) 값을 받아 호출
+    - apiKey 활성화: 계정 > User profile > Enable API Key
+    - JWT token 값 받아오기
+        - 계정 > User profile > Rest-API and MCP - Generate token
+        - rest api 호출
+    - Bearer token: 보안 토큰의 일종, 소지자(Bearer)가 추가 인증 없이 토큰만 있으면 접근하는 방식
+
+```
+# sign(POST): JWT token 값 받아오기
+
+# request
+/ingergration/sign
+{
+    "uid":계정
+    "apiKey":apiKey
+}
+
+# response
+{
+    "sign":JWT token
+    "success":true
+}
+```
+
+```
+# settings(PATCH): project의 세팅 값 변경
+# Ex. project의 복잡도 옵션을 초기화할때 사용(복잡도가 올라가면 project의 로딩시간이 길어지므로)
+
+# request
+# projectKey: project 이름
+# org: project의 소유자 권한인 상태에서 Project > Options > Process Details > Organization key
+/integration/processes/{projectKey}/setting
+auth: JWT token
+param: org
+{
+  "generalSettings": {
+    "computeDurationInBusinessHours": true,
+    "excludeWeekends": true,
+    "businessHours": "9-11",
+    "selectedCalendars": [
+      {
+        "id": "3rvsu7367378823gdbnfb",
+        "name": "Production Team",
+        "dates": [
+          "2019-11-14T00:55:31.820Z",
+          "2016-09-13T23:30:52.123Z"
+        ],
+        "vacationType": [
+          "sample"
+        ]
+      }
+    ],
+    "automatedFieldTruthValue": "Robot",
+    "automatedActivityAttribute": "Opp Band",
+    "customExcludedFields": [
+      "Opp band",
+      "Opp tree"
+    ],
+    "timeZoneOffset": "+0200",
+    "defaultPage": "Analytics",
+    "displayReferenceActivities": true,
+    "keepDefinedRoles": true,
+    "defaultMetric": "median",
+    "projectCurrency": "USD",
+    "modelRelationDetails": 1,                           #관계 복잡도
+    "modelActivityDetail": 100,                          #활동 복잡도
+    "blueWorksliveProcess": "sample",
+    "defaultBucketLimit": 23
+  },
+  "activityCosts": [
+    {
+      "activity": "Amend Purchase Requisition",
+      "cost": 1,
+      "type": "Manual",
+      "endDate": "2019-11-14T00:00:00.000Z"
+    }
+  ],
+  "activityWorkingTimes": [
+    {
+      "activity": "Amend Purchase Requisition",
+      "type": "Automatic",
+      "value": 110,
+      "endDate": "2019-11-14T00:00:00.000Z"
+    }
+  ],
+  "roleCosts": [
+    {
+      "role": "Requester",
+      "hourlyCost": 2,
+      "endDate": "2019-11-14T00:00:00.000Z"
+    }
+  ],
+  "resourceCosts": [
+    {
+      "resource": "Anna kaulfman",
+      "type": "Automatic",
+      "hourlyCost": 6,
+      "endDate": "2019-11-14T00:00:00.000Z"
+    }
+  ]
+}
+```
