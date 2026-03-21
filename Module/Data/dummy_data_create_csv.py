@@ -10,7 +10,7 @@ resources = ['system_auto', 'user_admin', 'worker_01', 'worker_02', 'bot_alpha']
 status_codes = [200, 201, 400, 404, 500]
 
 np.random.seed(42) 
-data_size = 50
+data_size = 10
 
 dummy_data = {
     'case_id': [f"C-{1000 + (i // 5)}" for i in range(data_size)],

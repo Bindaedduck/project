@@ -7,14 +7,14 @@ import logging
 def execute(input_dir):
     
     logging.basicConfig(
-    	filename='app.log'
+    	filename='app.log',
         level=logging.ERROR,
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     
     try:
-    	file_list = sorted(glob.glob(os.path.join(input_dir, "*.csv")))
+        file_list = sorted(glob.glob(os.path.join(input_dir, "*.csv")))
         
         engine = create_engine()
         
@@ -25,8 +25,8 @@ def execute(input_dir):
                 chunk = chunk.drop_duplicates(subset=['process_id','activity_name','start_time'], keep='first')
                 
                 with engine.begin() as conn:
-                	chunk.to_sql(
-                    	name='EVENT_LOG',
+                    chunk.to_sql(
+                        name='EVENT_LOG',
                         con=conn,
                         if_exists='append',
                         index=False,
@@ -35,8 +35,8 @@ def execute(input_dir):
                     )
                     
     except Exception as e:
-    	logging.exception("Exception occured: %s", e)
+        logging.exception("Exception occured: %s", e)
 
 if __name__ == "__main__":
-	input_dir = r''
+    input_dir = r''
     df = execute(input_dir)

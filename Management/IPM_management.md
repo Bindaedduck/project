@@ -20,23 +20,17 @@ VALUES(25, '관리자 그룹 id', '계정 id', '2026-02-24 23:04:10.594');
 
 <br/>
 
-> python 패키지 경로
+> python 패키지
 ```
-opt/processmining/respository/temp/accel/venv/lib/python3.12/site-packages/
-```
+# 경로
+opt/processmining/respository/temp/accel/venv/lib/python3.12/site-packages
 
-<br/>
+# 실제 실행 위치
+## RHEL
+/usr/bin/python 3.12
 
-> PostgreSQL 접속
-```
-# PostgreSQL 접속
-sudo -u postgres psql
-
-# PostgreSQL > processmining 스키마 접속 1
-sudo -u postgres psql -d processmining
-
-# PostgreSQL > processmining 스키마 접속 2
-sudo -u postgres /usr/bin/psql -d eventlog
+## IPM
+/opt/processmining/repository/temp/accel/venv/bin/python 3.12
 ```
 
 <br/>
@@ -107,11 +101,16 @@ chown -R user:user /
         - Generic error: 컬럼명이 예약어를 쓰고 있는 경우
         - Case id...: processid값이 빈칸
         - starttime...: starttime 형식 or 빈칸
+        - %Y-%m-%d %H:%M:%S.%f 형식을 사용하여 '2025-03-11 15:04:00'형식 날짜를 구문 분석할 수 없음: 2025-03-11 15:04:00 값을 %Y-%m-%d %H:%M:%S.%f 형식에 맞지 않아서 발생
 
 
-- Process > Model > Box
+- Process > Model
+  - Box
     - Anonymous: Role을 부여하지 않았을 때 표시
     - Box 클릭 후 show activity statistics > 필드 > compute statistics > 필드에 대한 통계
+    - endtime 컬럼 값을 설정하지 않으면 box에 duration 값은 0으로 표시
+  
+  - BPMN download: Download > Model(BPMN2.0) > Download
 
 - Table Join을 하면 object table 컬럼으로 role을 부여할 수 있다.
     - Attributes > Role attribute > Edit role attribute > 컬럼 지정
@@ -135,6 +134,7 @@ chown -R user:user /
 
 - 특이점
     - 다른 사용자가 Projcet의 옵션들을 조정하여 일정시간 보고 있으면 해당 옵션들을 projcet가 기억하여 다른 사람들이 project를 보려고 할때 해당 옵션으로 보여지게 된다.
+    - project는 소유자가 아니면 관리자나 rest api호출로도 삭제할 수 없다.
 
 > ProcessApp
 - error: 발견한 상황만 기재, 다른 문제일수도 있다.
@@ -149,7 +149,7 @@ chown -R user:user /
 
 > DB
 - project-operations: 에러 로그
-- accelatortypedetails: processapp
+- accelatortype, accelatortypedetails: processapp
 
 <br/>
 
