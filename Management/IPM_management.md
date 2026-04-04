@@ -112,7 +112,9 @@ chown -R user:user /
   
   - BPMN download: Download > Model(BPMN2.0) > Download
 
-- Table Join을 하면 object table 컬럼으로 role을 부여할 수 있다.
+- Table Join
+  - Event log와 Object table은 left outer join
+  - Table Join을 하면 object table 컬럼으로 role을 부여할 수 있다.
     - Attributes > Role attribute > Edit role attribute > 컬럼 지정
 
 - View option
@@ -128,9 +130,15 @@ chown -R user:user /
 
 - Multi projcet: 같은 organization안에 같은 object table로 묶여있는 경우에 같이 묶어서 최대 5개까지 보여진다.
 
+- 분석
+  - Elastic 고급 쿼리
+    - SELECT * 문은 불가 -> SELECT 컬럼 명시
+    - SELECT 한글컬럼명 은 불가 -> SELECT "한글컬러명" 은 가능
+
 - Backup
     - project의 meta data, 설정, 대시보드만 가져오며 data는 백업하지 않는다.
     - data를 업로드 할시 meta data, 설정, 대시보드 값을 backup파일의 값 그대로 가져온다.
+    - object table data도 백업하지 않으며, table 결합도 다시 해줘야된다.
 
 - 특이점
     - 다른 사용자가 Projcet의 옵션들을 조정하여 일정시간 보고 있으면 해당 옵션들을 projcet가 기억하여 다른 사람들이 project를 보려고 할때 해당 옵션으로 보여지게 된다.

@@ -79,8 +79,15 @@ Watsonx = AI 분석실
 |RPM|Linux프로그램 설치, 의존성 설치 X|X|
 |YUM|Linux프로그램 설치, 의존성 설치 O|O|
 
-## PostgreSQL 접속
+## PostgreSQL
 ```
+# pg_hba.conf 파일 위치
+# pg_hba.conf 파일: 외부 접근 제어 및 인증 관리
+/var/lib/pgsql/16/data/pg_hba.conf
+
+# 서비스 상태 확인
+system status postgresql-16
+
 # PostgreSQL 접속
 sudo -u postgres psql
 
@@ -89,6 +96,21 @@ sudo -u postgres psql -d processmining
 
 # PostgreSQL > processmining 스키마 접속 2
 sudo -u postgres /usr/bin/psql -d eventlog
+
+# PostgreSQL 데이터베이스 생성
+# usr/psql-16/bin 위치에서 생성하기
+export POSTGRES_PROCESSMINER_PWD="<YOUR_PASSWORD>"
+export POSTGRES_PROCESSMINER_USER="processmining"
+export POSTGRES_PROCESSMINER_DATABASE="processmining"
+
+pushd /tmp
+sudo -E -u postgres createuser ${POSTGRES_PROCESSMINER_USER}
+sudo -E -u postgres createdb ${POSTGRES_PROCESSMINER_DATABASE}
+sudo -E -u postgres psql -c "alter user ${POSTGRES_PROCESSMINER_USER} with encrypted password '${POSTGRES_PROCESSMINER_PWD}';"
+sudo -E -u postgres psql -c "grant all privileges on database ${POSTGRES_PROCESSMINER_DATABASE} to ${POSTGRES_PROCESSMINER_USER};"
+sudo -E -u postgres psql -c "GRANT ALL ON ALL TABLES IN SCHEMA public TO ${POSTGRES_PROCESSMINER_USER}";
+sudo -E -u postgres psql -c "ALTER DATABASE ${POSTGRES_PROCESSMINER_DATABASE} OWNER TO ${POSTGRES_PROCESSMINER_USER}";
+popd
 ```
 
 

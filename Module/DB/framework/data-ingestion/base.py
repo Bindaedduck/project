@@ -15,7 +15,7 @@ class BaseIngestion(ABC):
         self.backup_path = os.path.join(self.system_path, "backup")
         self.logger = self._set_logger()
 
-	@abstractmethod
+    @abstractmethod
     def _sef_file_list(self):
         pass
     
