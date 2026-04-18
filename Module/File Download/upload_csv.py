@@ -101,7 +101,7 @@ def upload_all_csv_in_folder(file_name, max_retries=5)
             ]
             
             try:
-            	response = subprocess.run()
+            	response = subprocess.run(cmd, check=True, capture_output=True, text=True)
             except subprocess.CalledProcessError as e:
                 logging.error()
                 return False
@@ -109,8 +109,8 @@ def upload_all_csv_in_folder(file_name, max_retries=5)
                 logging.critical()
                 return False
             
-            status_code =
-            response_body =
+            status_code = int(response.stdout[-3:])
+            response_body = response.stdout[:-3]
             
             if status_code == 200:
             	logging.info()
@@ -129,7 +129,33 @@ def upload_all_csv_in_folder(file_name, max_retries=5)
             return False
     return False
 
-
+def map_csv():
+    csv_mapping_url = f"{domain_url}/integration/csv/{project_key}/create_log?org={org_key}"
+    
+    cmd = [
+    	"curl",
+        "-k",
+        "-w",
+        "%{http_code}",
+        "-X", "POST",
+        csv_mapping_url,
+        "-H", f"Authorization: Bearer {ACCESS_TOKEN}"
+    ]
+	
+    try:
+    	response = subprocess.run(cmd, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as e:
+        loggig.error()
+    except Exception as e:
+        logging.critical()
+    
+    status_code = int(response.stdout[-3:])
+    response_body = response.stdout[:-3]
+    
+    if status_code == 200:
+        logging.info()
+    else:
+        logging.info()
 def main():
     set_token_response = set_token()
     
