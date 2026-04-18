@@ -1,11 +1,12 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-engine = create_engine()
+engine = create_engine("postgresql://ID:비밀번호@접속주소/데이터베이스")
 
 def db_to_csv_chunk(system_name, file_path):
     CHUNK_SIZE = 1000000
-    query = f''''''
+	시스템 이름과 조회가간 별로 반복해서 조회?
+    query = f'''SELECT * FROM pulbic."EVENT_LOG" WHERE SYSTEM_NAME='{system_name}'  '''
     
     data_iterator = pd.read_sql(query, engine, chunksize=CHUNK_SIZE)
     
