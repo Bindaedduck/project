@@ -22,19 +22,19 @@ def set_access_token(token):
     global ACCESS_TOKEN
     ACCESS_TOKEN = token
 
-today = date.today()
-log_today = today.strftime('%Y%m%d')
-log_path = f"{target_dir}/logs"
-logging.basicConfig(
-	level=logging.INFO,
-    format='%(asctime)s - [%(name)s] - %(levelName)s - %(message)s',
-    handlers=[
-    	logging.FileHandler(f"{log_path}/upload_csv_{today}.log", encoding='utf-8')
-    ]
-)
+    today = date.today()
+    log_today = today.strftime('%Y%m%d')
+    log_path = f"{target_dir}/logs"
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - [%(name)s] - %(levelName)s - %(message)s',
+        handlers=[
+            logging.FileHandler(f"{log_path}/upload_csv_{today}.log", encoding='utf-8')
+        ]
+    )
 
 def set_token():
-    get token_url = f"{domain_url}/integration/sign"
+    get_token_url = f"{domain_url}/integration/sign"
     
     payload = {
     	"uid":uid,
@@ -54,7 +54,7 @@ def set_token():
     ]
     
     try:
-    	response = subprocess.run(cmd, check=True, capture_ouptut=True, text=True)
+        response = subprocess.run(cmd, check=True, capture_ouptut=True, text=True)
     except subprocess.CalledProcessError as e:
         logging.error()
     except Exception as e:
@@ -67,29 +67,29 @@ def set_token():
         token = response_body.get("sign")
         
         try:
-        	if not token:
-         	   raise ValueError()
+            if not token:
+                raise ValueError()
         except ValueError as e:
             logging.error()
         
         logging.info()
         
-        set_accses_token(token)
-    else
-    	logging.error()
-    
+        set_access_token(token)
+    else:
+        logging.error()
+        
     return status_code
 
-def upload_all_csv_in_folder(file_name, max_retries=5)
-	upload_csv_url = f"{domain_url}/integration/csv/{project_key}/upload?org={org_key}"
-    
+def upload_all_csv_in_folder(file_name, max_retries=5):
+    upload_csv_url = f"{domain_url}/integration/csv/{project_key}/upload?org={org_key}"
+
     retry_count = 0
     wait_time = 5
-    
+
     while retry_count < max_retries:
         try:
-        	cmd = [
-        		"cur",
+            cmd = [
+                "cur",
                 "-k",
                 "-w",
                 "%{http_code}",
@@ -101,7 +101,7 @@ def upload_all_csv_in_folder(file_name, max_retries=5)
             ]
             
             try:
-            	response = subprocess.run(cmd, check=True, capture_output=True, text=True)
+                response = subprocess.run(cmd, check=True, capture_output=True, text=True)
             except subprocess.CalledProcessError as e:
                 logging.error()
                 return False
@@ -113,7 +113,7 @@ def upload_all_csv_in_folder(file_name, max_retries=5)
             response_body = response.stdout[:-3]
             
             if status_code == 200:
-            	logging.info()
+                logging.info()
                 return True
             
             if "is running." in response_body.lower():
@@ -125,7 +125,7 @@ def upload_all_csv_in_folder(file_name, max_retries=5)
                 logging.error()
                 return False
         except Exception as e:
-        	logging.error()
+            logging.error()
             return False
     return False
 
@@ -143,7 +143,7 @@ def map_csv():
     ]
 	
     try:
-    	response = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        response = subprocess.run(cmd, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
         loggig.error()
     except Exception as e:
@@ -156,6 +156,7 @@ def map_csv():
         logging.info()
     else:
         logging.info()
+
 def main():
     set_token_response = set_token()
     
